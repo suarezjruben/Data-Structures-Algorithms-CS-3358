@@ -86,10 +86,11 @@ bool IntSet::contains(int anInt) const
 
 bool IntSet::isSubsetOf(const IntSet& otherIntSet) const
 {
+   cout << "In isSubsetOf" << endl;
    bool subset = true;
    int matches = 0;
    //Check size of 'this' IntSet first, if 0 then subset is true.
-   while (used != 0)
+   if (used != 0)
    {
       for(int i=0; i<=otherIntSet.size(); i++)
       {
@@ -199,7 +200,7 @@ bool IntSet::add(int anInt)
       }
    }
    else added = false;
-
+   cout << "used: " << used << endl;
    return added; 
 }
 
@@ -230,12 +231,14 @@ bool IntSet::remove(int anInt)
 
 bool equal(const IntSet& is1, const IntSet& is2)
 {
+   cout << "Start of equal" << endl;
    bool equal = false;
-   if (is1.isSubsetOf(is2) && is2.isSubsetOf(is1))
+   if (is1.isSubsetOf(is2) )//&& is2.isSubsetOf(is1))
    {
+      cout << "if statement" << endl;
       equal = true;
    }
-
+   cout << "End of equal" << endl;
    return equal;
 }
 
