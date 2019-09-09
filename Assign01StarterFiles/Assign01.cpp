@@ -467,7 +467,7 @@ for(int i=0; i<=3; i++){cout << argv[i] << endl;}
 
 void print_menu()
 {
-   cout << endl;
+   /*cout << endl;
    cout << "The following choices are available: " << endl;
    cout << "  a  Add an item to is1, is2 or is3" << endl;
    cout << "  b  Query if 1 of is1, is2 or is3 is subset of is1, is2 or is3" << endl;
@@ -481,7 +481,7 @@ void print_menu()
    cout << "  s  Subtract 1 of is1, is2 or is3 from is1, is2 or is3" << endl;
    cout << "  u  Union 1 of is1, is2 or is3 with is1, is2 or is3" << endl;
    cout << "  z  Query # of items in 1 or more of is1, is2 and is3" << endl;
-   cout << "  q  Quit this test program" << endl;
+   cout << "  q  Quit this test program" << endl;*/
 }
 
 char get_user_command()

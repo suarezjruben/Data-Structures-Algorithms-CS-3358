@@ -200,7 +200,6 @@ bool IntSet::add(int anInt)
       }
    }
    else added = false;
-   cout << "used: " << used << endl;
    return added; 
 }
 
