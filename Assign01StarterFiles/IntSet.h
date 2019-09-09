@@ -110,6 +110,9 @@ public:
    void reset();
    bool add(int anInt);
    bool remove(int anInt);
+////To be Removed. For testing only
+void display();
+/////////////////////////////////////
 
 private:
    int data[MAX_SIZE];

@@ -59,13 +59,12 @@ int IntSet::size() const
    return used; 
 }
 
-
 bool IntSet::isEmpty() const
 {
    bool empty;
    //if 'used'/'size' is greater than 0 then the intSet is not empty, else is empty.
-   if(used > 0)empty = false;
-   else if(used == 0)empty = true;
+   if (used > 0)empty = false;
+   else if (used == 0)empty = true;
    return empty; 
 }
 
@@ -73,7 +72,7 @@ bool IntSet::contains(int anInt) const
 {
    bool found = false;
    //Check for anInt in the IntSet, return true if present, else return false.
-   for(int i=0; i < used; i++)
+   for (int i=0; i < used; i++)
    {
       if(data[i] == anInt)found = true;
    }
@@ -85,13 +84,13 @@ bool IntSet::isSubsetOf(const IntSet& otherIntSet) const
    bool subset = true;
    int matches = 0;
    //Check size of 'this' IntSet first, if 0 then subset is true.
-   while(used != 0)
+   while (used != 0)
    {
       for(int i=0; i<=otherIntSet.size(); i++)
       {
          for(int j=0; j<=used; j++)
          {
-            if(otherIntSet.contains(data[j]))matches++;
+            if(otherIntSet.contains(data[j])) matches++;
          }
       }
    }
@@ -111,8 +110,26 @@ void IntSet::DumpData(ostream& out) const
 
 IntSet IntSet::unionWith(const IntSet& otherIntSet) const
 {
-   cout << "unionWith() is not implemented yet..." << endl;
-   return IntSet(); // dummy IntSet object returned
+   int shared = 0;
+   IntSet united;
+   //Identify # of shared values
+   for (int i=0; i<=otherIntSet.size(); i++)
+   {
+      for (int j=0; j<=used; j++)
+      {
+         if (otherIntSet.contains(data[j])) shared++;
+      }
+   }
+   //Verify that size of combineation does not go above MAX_SIZE
+   if (((used + otherIntSet.size()) - shared) <= MAX_SIZE)
+   {
+      united = otherIntSet;
+      for (int i = 0; i < used; i++)
+      {
+         united.data[i + otherIntSet.size()] = data[i];
+      }
+   }
+   return united; 
 }
 
 IntSet IntSet::intersect(const IntSet& otherIntSet) const
@@ -134,23 +151,59 @@ void IntSet::reset()
 
 bool IntSet::add(int anInt)
 {
-   bool added;
+   bool added = true;
    //check contains() for int value
    //if contains() returns true, do not add new value and return false
-   added = false;
+   if(contains(anInt))added = false;
    //if contains() returns false, add new value and return true
-   added = true;
-   return added; // dummy value returned
+   else if(!contains(anInt))
+   {
+      data[used] = anInt;
+      used++;
+   }
+   return added; 
 }
 
 bool IntSet::remove(int anInt)
 {
-   cout << "remove() is not implemented yet..." << endl;
-   return false; // dummy value returned
+   bool erased = true;
+   int flag = 0;
+   //Checking contains(anInt), if return is true
+   if (contains(anInt))
+   {
+      for (int i=0; i < used; i++)
+      {
+         if(data[i] == anInt)
+         {
+            flag = i;
+         }
+      }
+      while (flag < MAX_SIZE) 
+      {
+         data[flag] = data[flag+1];
+         flag++;
+      } 
+      used--;
+   }
+   else erased = false;
+   return erased;
 }
 
 bool equal(const IntSet& is1, const IntSet& is2)
 {
+   //bool 
    cout << "equal() is not implemented yet..." << endl;
    return false; // dummy value returned
 }
+
+void IntSet::display()
+{
+   for(int i = 0; i < used; i++)
+	{
+	   cout << data[i] << " ";
+	}
+}
+
+
+
+
