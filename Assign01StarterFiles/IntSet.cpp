@@ -48,32 +48,55 @@ using namespace std;
 
 IntSet::IntSet()
 {
-   cout << "IntSet() is not implemented yet..." << endl;
+   //If new Inset object, set 'used' to 0
+   used = 0;
+   
 }
 
 int IntSet::size() const
 {
-   cout << "size() is not implemented yet..." << endl;
-   return 0; // dummy value returned
+   //'used' holds the total amount of distinct values, should be same as size.
+   return used; 
 }
 
 
 bool IntSet::isEmpty() const
 {
-   cout << "isEmpty() is not implemented yet..." << endl;
-   return false; // dummy value returned
+   bool empty;
+   //if 'used'/'size' is greater than 0 then the intSet is not empty, else is empty.
+   if(used > 0)empty = false;
+   else if(used == 0)empty = true;
+   return empty; 
 }
 
 bool IntSet::contains(int anInt) const
 {
-   cout << "contains() is not implemented yet..." << endl;
-   return 0; // dummy value returned
+   bool found = false;
+   //Check for anInt in the IntSet, return true if present, else return false.
+   for(int i=0; i < used; i++)
+   {
+      if(data[i] == anInt)found = true;
+   }
+   return found; // dummy value returned
 }
 
 bool IntSet::isSubsetOf(const IntSet& otherIntSet) const
 {
-   cout << "isSubsetOf() is not implemented yet..." << endl;
-   return false; // dummy value returned
+   bool subset = true;
+   int matches = 0;
+   //Check size of 'this' IntSet first, if 0 then subset is true.
+   while(used != 0)
+   {
+      for(int i=0; i<=otherIntSet.size(); i++)
+      {
+         for(int j=0; j<=used; j++)
+         {
+            if(otherIntSet.contains(data[j]))matches++;
+         }
+      }
+   }
+   if(matches != used)subset = false;
+   return subset; 
 }
 
 void IntSet::DumpData(ostream& out) const
@@ -111,8 +134,13 @@ void IntSet::reset()
 
 bool IntSet::add(int anInt)
 {
-   cout << "add() is not implemented yet..." << endl;
-   return false; // dummy value returned
+   bool added;
+   //check contains() for int value
+   //if contains() returns true, do not add new value and return false
+   added = false;
+   //if contains() returns false, add new value and return true
+   added = true;
+   return added; // dummy value returned
 }
 
 bool IntSet::remove(int anInt)

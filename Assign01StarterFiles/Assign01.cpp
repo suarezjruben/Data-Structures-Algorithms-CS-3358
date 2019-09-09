@@ -50,6 +50,11 @@ int main(int argc, char* argv[])
    char choice;            // command character entered by the user
 
    cout << "3 IntSet objects (is1 is2 is3) have been created." << endl;
+/*
+cout << argc << endl;
+for(int i=0; i<=3; i++){cout << argv[i] << endl;}
+
+*/
 
    do
    {
@@ -64,6 +69,7 @@ int main(int argc, char* argv[])
          switch (objectNum)
          {
          case 1:
+			           //if bellow is 'true' print "" else print "not"
             cout << givenValue << (is1.add(givenValue) ? "" : " not") << " added to is1" << endl;
             break;
          case 2:

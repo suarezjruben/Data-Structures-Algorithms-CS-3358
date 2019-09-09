@@ -113,7 +113,7 @@ public:
 
 private:
    int data[MAX_SIZE];
-   int used;
+   int used;  //The # of distinct int values the IntSet currently contains
 };
 
 bool equal(const IntSet& is1, const IntSet& is2);
