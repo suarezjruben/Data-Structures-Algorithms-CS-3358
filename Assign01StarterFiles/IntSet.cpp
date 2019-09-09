@@ -159,22 +159,24 @@ IntSet IntSet::intersect(const IntSet& otherIntSet) const
 
 IntSet IntSet::subtract(const IntSet& otherIntSet) const
 {
-   IntSet subtractSet = *this;
+   IntSet subtractedSet = *this;
    // Removing every item that is present 
    // in otherIntSet
    for (int i = 0; i < size(); i++)
    {
       if (otherIntSet.contains(data[i]))
       {
-         subtractSet.remove(data[i]);
+         subtractedSet.remove(data[i]);
       }
    }
    
-   return subtractSet;
+   return subtractedSet;
+}
 
 void IntSet::reset()
 {
-   cout << "reset() is not implemented yet..." << endl;
+   // Reseting 'used' to 0
+   used = 0;
 }
 
 bool IntSet::add(int anInt)
@@ -228,9 +230,13 @@ bool IntSet::remove(int anInt)
 
 bool equal(const IntSet& is1, const IntSet& is2)
 {
-   //bool 
-   cout << "equal() is not implemented yet..." << endl;
-   return false; // dummy value returned
+   bool equal = false;
+   if (is1.isSubsetOf(is2) && is2.isSubsetOf(is1))
+   {
+      equal = true;
+   }
+
+   return equal;
 }
 
 
