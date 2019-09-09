@@ -141,9 +141,20 @@ IntSet IntSet::unionWith(const IntSet& otherIntSet) const
 
 IntSet IntSet::intersect(const IntSet& otherIntSet) const
 {
+   // Creating retrun IntSet
    IntSet intersectSet = *this;
 
-   return IntSet(); // dummy IntSet object returned
+   // Removing every item that is not present
+   // in otherIntSet
+   for (int i = 0; i < size(); i++)
+   {
+      if (!otherIntSet.contains(data[i]))
+      {
+         intersectSet.remove(data[i]);
+      }
+   }
+   
+   return intersectSet;
 }
 
 IntSet IntSet::subtract(const IntSet& otherIntSet) const

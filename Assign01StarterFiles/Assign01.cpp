@@ -452,9 +452,6 @@ for(int i=0; i<=3; i++){cout << argv[i] << endl;}
       case 'q': case 'Q':
          cout << "Quit option selected...bye" << endl;
          break;
-      case 'x': case 'X':
-         is1.display();
-         break;
       default:
          cout << choice << " is not a valid option...try again"
               << endl;
