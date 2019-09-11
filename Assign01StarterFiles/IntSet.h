@@ -110,13 +110,10 @@ public:
    void reset();
    bool add(int anInt);
    bool remove(int anInt);
-////To be Removed. For testing only
-void display();
-/////////////////////////////////////
 
 private:
    int data[MAX_SIZE];
-   int used;  //The # of distinct int values the IntSet currently contains
+   int used;
 };
 
 bool equal(const IntSet& is1, const IntSet& is2);

@@ -50,11 +50,6 @@ int main(int argc, char* argv[])
    char choice;            // command character entered by the user
 
    cout << "3 IntSet objects (is1 is2 is3) have been created." << endl;
-/*
-cout << argc << endl;
-for(int i=0; i<=3; i++){cout << argv[i] << endl;}
-
-*/
 
    do
    {
@@ -69,7 +64,6 @@ for(int i=0; i<=3; i++){cout << argv[i] << endl;}
          switch (objectNum)
          {
          case 1:
-			           //if bellow is 'true' print "" else print "not"
             cout << givenValue << (is1.add(givenValue) ? "" : " not") << " added to is1" << endl;
             break;
          case 2:
@@ -467,7 +461,7 @@ for(int i=0; i<=3; i++){cout << argv[i] << endl;}
 
 void print_menu()
 {
-   /*cout << endl;
+   cout << endl;
    cout << "The following choices are available: " << endl;
    cout << "  a  Add an item to is1, is2 or is3" << endl;
    cout << "  b  Query if 1 of is1, is2 or is3 is subset of is1, is2 or is3" << endl;
@@ -481,7 +475,7 @@ void print_menu()
    cout << "  s  Subtract 1 of is1, is2 or is3 from is1, is2 or is3" << endl;
    cout << "  u  Union 1 of is1, is2 or is3 with is1, is2 or is3" << endl;
    cout << "  z  Query # of items in 1 or more of is1, is2 and is3" << endl;
-   cout << "  q  Quit this test program" << endl;*/
+   cout << "  q  Quit this test program" << endl;
 }
 
 char get_user_command()

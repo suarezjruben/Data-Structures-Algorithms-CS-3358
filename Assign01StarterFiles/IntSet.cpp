@@ -60,17 +60,20 @@ int IntSet::size() const
 
 bool IntSet::isEmpty() const
 {
-   bool empty;
    // if 'used'/'size' is greater than 0 
    // then the intSet is not empty, else is empty.
-   if (used > 0)empty = false;
-   else if (used == 0)empty = true;
-   return empty; 
+   if (used > 0) 
+   {
+      return false;
+   }
+   else
+   {
+      return true; 
+   }
 }
 
 bool IntSet::contains(int anInt) const
 {
-   bool found = false;
    // Check that IntSet is not empty then check for 
    // anInt in the IntSet, return true if present, 
    // else return false.
@@ -78,30 +81,31 @@ bool IntSet::contains(int anInt) const
    {  
       for (int i=0; i < used; i++)
       {
-         if(data[i] == anInt)found = true;
+         if(data[i] == anInt) return true;
       }
    }
-   return found; 
+   return false;
 }
 
 bool IntSet::isSubsetOf(const IntSet& otherIntSet) const
 {
-   cout << "In isSubsetOf" << endl;
-   bool subset = true;
-   int matches = 0;
+   
    //Check size of 'this' IntSet first, if 0 then subset is true.
-   if (used != 0)
+   if (isEmpty())
    {
-      for(int i=0; i<=otherIntSet.size(); i++)
+      return true;
+   }
+   else
+   {
+      for (int i = 0; i < used; i++)
       {
-         for(int j=0; j<=used; j++)
+         if (!otherIntSet.contains(data[i]))
          {
-            if(otherIntSet.contains(data[j])) matches++;
+            return false;
          }
       }
    }
-   if(matches != used)subset = false;
-   return subset; 
+   return true;
 }
 
 void IntSet::DumpData(ostream& out) const
@@ -126,7 +130,7 @@ IntSet IntSet::unionWith(const IntSet& otherIntSet) const
          if (otherIntSet.contains(data[j])) shared++;
       }
    }
-   //Verify that size of combineation does not go above MAX_SIZE
+   //Verify that size of combination does not go above MAX_SIZE
    if (((used + otherIntSet.size()) - shared) <= MAX_SIZE)
    {
       for (int i = 0; i < otherIntSet.size(); i++)
@@ -182,14 +186,16 @@ void IntSet::reset()
 
 bool IntSet::add(int anInt)
 {
-   bool added = true;
    // Check that the IntSet is not full
    if (used < MAX_SIZE)
    {
       // Check contains() for int value
       // if contains() returns true, do 
       // NOT add new value and return false
-      if(contains(anInt)) added = false;
+      if(contains(anInt))
+      {
+         return false;
+      }
 
       // if contains() returns false, 
       // add new value and return true
@@ -197,10 +203,12 @@ bool IntSet::add(int anInt)
       {
          data[used] = anInt;
          used++;
+         return true;
       }
    }
-   else added = false;
-   return added; 
+
+   return false; 
+
 }
 
 bool IntSet::remove(int anInt)
@@ -230,14 +238,11 @@ bool IntSet::remove(int anInt)
 
 bool equal(const IntSet& is1, const IntSet& is2)
 {
-   cout << "Start of equal" << endl;
    bool equal = false;
-   if (is1.isSubsetOf(is2) )//&& is2.isSubsetOf(is1))
+   if (is1.isSubsetOf(is2) && is2.isSubsetOf(is1))
    {
-      cout << "if statement" << endl;
       equal = true;
    }
-   cout << "End of equal" << endl;
    return equal;
 }
 
