@@ -78,7 +78,33 @@ using namespace std;
 
 void IntSet::resize(int new_capacity)
 {
-   cout << "resize() is not implemented yet..." << endl;
+   // Validating new capacity value
+   if (used != 0 && new_capacity < used )
+   {
+      capacity = used;
+   }
+   else if (new_capacity <= 0)
+   {
+      capacity = DEFAULT_CAPACITY;
+   }
+   else
+   {
+      capacity = new_capacity;
+   }
+   // Creating new dynamic array with new capacity value.
+   int * new_array = new int[capacity];
+   // Transferring old elements to new dynamic array.
+   for (int i = 0; i < used; i++)
+   {
+      new_array[i] = data[i];
+   }
+   // Deallocating old array.
+   delete [] data;
+   // Assigning data to new array.
+   data = new_array;
+   // Removing new_array pinter because it is no longer needed
+   new_array = NULL;
+   delete new_array;
 }
 
 IntSet::IntSet(int initial_capacity) : capacity(initial_capacity), used(0)
@@ -172,8 +198,8 @@ void IntSet::DumpData(ostream& out) const
 
 IntSet IntSet::unionWith(const IntSet& otherIntSet) const
 {
-   cout << "unionWith() is not implemented yet..." << endl;
-   return IntSet(); // dummy IntSet object returned
+   //IntSet unionSet = *
+   return IntSet();
 }
 
 IntSet IntSet::intersect(const IntSet& otherIntSet) const
