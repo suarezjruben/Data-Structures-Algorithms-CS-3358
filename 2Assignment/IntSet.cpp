@@ -81,11 +81,12 @@ void IntSet::resize(int new_capacity)
    cout << "resize() is not implemented yet..." << endl;
 }
 
-IntSet::IntSet(int initial_capacity)
+IntSet::IntSet(int initial_capacity) : capacity(initial_capacity), used(0)
 {
-   if (initial_capacity > 1)
+   // Initializing capacity to DEFAULT_CAPACITY if initial_capacity < 1
+   if (initial_capacity < 1)
    {
-      capacity = initial_capacity;
+      capacity = DEFAULT_CAPACITY;
    }
 }
 
