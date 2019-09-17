@@ -91,13 +91,16 @@ void IntSet::resize(int new_capacity)
    {
       capacity = new_capacity;
    }
+
    // Creating new dynamic array with new capacity value.
    int * new_array = new int[capacity];
+
    // Transferring old elements to new dynamic array.
    for (int i = 0; i < used; i++)
    {
       new_array[i] = data[i];
    }
+
    // Deallocating old array.
    delete [] data;
    // Assigning data to new array.
@@ -221,8 +224,24 @@ void IntSet::reset()
 
 bool IntSet::add(int anInt)
 {
-   cout << "add() is not implemented yet..." << endl;
-   return false; // dummy value returned
+   // Validating new value, if not new then false is returned
+   if (contains(anInt))
+   {
+      return false;
+   }
+   // Validating that array is not full,
+   // if so then calling the resize function
+   else if (used >= capacity)
+   {
+      resize(int(1.5 * capacity) + 1);
+   }
+
+   // Adding new element 
+   data[used] = anInt;
+   used++;
+   cout << "used count: " << used << endl;
+
+   return true;
 }
 
 bool IntSet::remove(int anInt)
