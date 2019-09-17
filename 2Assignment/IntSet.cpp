@@ -88,6 +88,8 @@ IntSet::IntSet(int initial_capacity) : capacity(initial_capacity), used(0)
    {
       capacity = DEFAULT_CAPACITY;
    }
+   // Assing 'data' to a new intance of a dynamic array of size 'capacity'
+   data = new int[capacity];
 }
 
 IntSet::IntSet(const IntSet& src)
@@ -109,26 +111,53 @@ IntSet& IntSet::operator=(const IntSet& rhs)
 
 int IntSet::size() const
 {
-   cout << "size() is not implemented yet..." << endl;
-   return 0; // dummy value returned
+   // Returning # of distinct int values the invoking IntSet currently contains
+   // which is stored in the member variable used.
+   return used;
 }
 
 bool IntSet::isEmpty() const
 {
-   cout << "isEmpty() is not implemented yet..." << endl;
-   return false; // dummy value returned
+   // Returning true if used is equal to 0.
+   return (used == 0);
 }
 
 bool IntSet::contains(int anInt) const
 {
-   cout << "contains() is not implemented yet..." << endl;
-   return false; // dummy value returned
+   if (used > 0)
+   {
+      for (int i = 0; i < used; i++)
+      {
+         // if (data[i] == anInt) // Differnt version
+         if (*(data + i) == anInt)
+         {
+            return true;
+         }
+      }
+   }
+   return false;
 }
 
 bool IntSet::isSubsetOf(const IntSet& otherIntSet) const
 {
-   cout << "isSubsetOf() is not implemented yet..." << endl;
-   return false; // dummy value returned
+   // An empty set is a subset of any set.
+   if (isEmpty())
+   {
+      return true;
+   }
+   // Check for all elements of invoking set, if any one element is not
+   // contained return false.
+   else
+   {
+      for (int i = 0; i < used; i++)
+      {
+         if (!(otherIntSet.contains(data[i])))
+         {
+            return false;
+         }
+      }
+   }
+   return true;
 }
 
 void IntSet::DumpData(ostream& out) const
