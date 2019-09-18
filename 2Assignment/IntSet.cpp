@@ -282,7 +282,9 @@ IntSet IntSet::subtract(const IntSet& otherIntSet) const
 
 void IntSet::reset()
 {
-   cout << "reset() is not implemented yet..." << endl;
+   delete [] data;
+   data = new int[DEFAULT_CAPACITY];
+   used = 0;
 }
 
 bool IntSet::add(int anInt)
