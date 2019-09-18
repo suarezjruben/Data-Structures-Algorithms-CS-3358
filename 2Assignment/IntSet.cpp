@@ -285,6 +285,7 @@ void IntSet::reset()
    delete [] data;
    data = new int[DEFAULT_CAPACITY];
    used = 0;
+   capacity = DEFAULT_CAPACITY;
 }
 
 bool IntSet::add(int anInt)
@@ -314,17 +315,23 @@ bool IntSet::add(int anInt)
 
 bool IntSet::remove(int anInt)
 {
-   cout << "intersect() is not implemented yet..." << endl;
-   /*
+   IntSet temp_intSet;
    if (contains(anInt))
    {
+      for (int i = 0; i < used; i++)
+      {
+         if (!(data[i] == anInt))
+         {
+            temp_intSet.add(data[i]);
+         }
+      }
+      delete [] data;
+      data = temp_intSet.data;
+      used = temp_intSet.used;
+      capacity = temp_intSet.capacity;
+      return true;
+   }
 
-   }
-   else
-   {
-      return false;
-   }
-   */
    return false;
 }
 
