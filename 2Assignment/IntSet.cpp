@@ -264,8 +264,20 @@ IntSet IntSet::intersect(const IntSet& otherIntSet) const
 
 IntSet IntSet::subtract(const IntSet& otherIntSet) const
 {
-   cout << "subtract() is not implemented yet..." << endl;
-   return IntSet(); // dummy IntSet object returned
+   // IntSet representing the difference between the
+   // invoking IntSet and otherIntSet
+   IntSet subtractSet = *this;
+
+   // Removing all elemts in otherIntSet that
+   // are contained in subtractSet
+   for (int i = 0; i < otherIntSet.used; i++)
+   {
+      // Calling remove() right away because the remove function
+      // does the contain() check already
+      subtractSet.remove(otherIntSet.data[i]);
+   }
+
+   return subtractSet;
 }
 
 void IntSet::reset()
