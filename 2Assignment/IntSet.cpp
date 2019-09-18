@@ -117,13 +117,20 @@ IntSet::IntSet(int initial_capacity) : capacity(initial_capacity), used(0)
    {
       capacity = DEFAULT_CAPACITY;
    }
-   // Assing 'data' to a new intance of a dynamic array of size 'capacity'
+   // Assingning 'data' to a new intance of a dynamic array of size 'capacity'
    data = new int[capacity];
 }
 
-IntSet::IntSet(const IntSet& src)
+IntSet::IntSet(const IntSet& src) : capacity(src.capacity), used(src.used)
 {
-   cout << "copy constructor is not implemented yet..." << endl;
+   // Assingning 'data' to a new intance of a dynamic array of size 'capacity'
+   data = new int[capacity];
+
+   // Copying every element in src to data
+   for (int i = 0; i < src.capacity; i++)
+   {
+      data[i] = src.data[i];
+   }
 }
 
 
@@ -225,29 +232,41 @@ void IntSet::reset()
 bool IntSet::add(int anInt)
 {
    // Validating new value, if not new then false is returned
-   if (contains(anInt))
+   if (!contains(anInt))
+   {
+      // Validating that array is not full,
+      // if so then calling the resize function
+      if (used >= capacity)
+      {
+         // Resizing to atleast capacity + 1.
+         resize(int(1.5 * capacity) + 1);
+      }
+
+      // Adding new element
+      data[used] = anInt;
+      used++;
+
+      return true;
+   }
+   else
    {
       return false;
    }
-   // Validating that array is not full,
-   // if so then calling the resize function
-   else if (used >= capacity)
-   {
-      resize(int(1.5 * capacity) + 1);
-   }
-
-   // Adding new element 
-   data[used] = anInt;
-   used++;
-   cout << "used count: " << used << endl;
-
-   return true;
 }
 
 bool IntSet::remove(int anInt)
 {
-   cout << "remove() is not implemented yet..." << endl;
-   return false; // dummy value returned
+   /*
+   if (contains(anInt))
+   {
+
+   }
+   else
+   {
+      return false;
+   }
+   */
+   return false;
 }
 
 bool operator==(const IntSet& is1, const IntSet& is2)
