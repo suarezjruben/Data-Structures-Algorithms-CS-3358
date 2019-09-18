@@ -315,6 +315,7 @@ bool IntSet::add(int anInt)
 
 bool IntSet::remove(int anInt)
 {
+   /*
    IntSet temp_intSet;
    if (contains(anInt))
    {
@@ -327,8 +328,23 @@ bool IntSet::remove(int anInt)
       }
       delete [] data;
       data = temp_intSet.data;
-      used = temp_intSet.used;
       capacity = temp_intSet.capacity;
+      used--;
+      return true;
+   }*/
+   if (contains(anInt))
+   {
+      for (int i = 0; i < used; i++)
+      {
+         if (data[i] == anInt)
+         {
+            for (int j = i; j < used - 1; j++)
+            {
+               data[j] = data[j+1];
+            }
+            --used;
+         }
+      }
       return true;
    }
 
