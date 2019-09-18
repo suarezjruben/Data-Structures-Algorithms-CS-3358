@@ -337,6 +337,14 @@ bool IntSet::remove(int anInt)
 
 bool operator==(const IntSet& is1, const IntSet& is2)
 {
-   cout << "operator==() is not implemented yet..." << endl;
-   return false; // dummy value returned
+   if (is1.isEmpty() && is2.isEmpty())
+   {
+      return true;
+   }
+   else if (is1.isSubsetOf(is2) && is2.isSubsetOf(is1))
+   {
+      return true;
+   }
+
+   return false;
 }
