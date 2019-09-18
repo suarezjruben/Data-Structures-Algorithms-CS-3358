@@ -159,7 +159,7 @@ IntSet& IntSet::operator=(const IntSet& rhs)
    capacity = rhs.capacity;
    used = rhs.used;
 
-   // Delingt temp_array pointer because is no longer needed
+   // Deletingt temp_array pointer because is no longer needed
    temp_array = NULL;
    delete temp_array;
 
@@ -282,6 +282,8 @@ IntSet IntSet::subtract(const IntSet& otherIntSet) const
 
 void IntSet::reset()
 {
+   // Deleting all array data, creating new empty array
+   // and reseting used to 0
    delete [] data;
    data = new int[DEFAULT_CAPACITY];
    used = 0;
@@ -315,29 +317,16 @@ bool IntSet::add(int anInt)
 
 bool IntSet::remove(int anInt)
 {
-   /*
-   IntSet temp_intSet;
-   if (contains(anInt))
-   {
-      for (int i = 0; i < used; i++)
-      {
-         if (!(data[i] == anInt))
-         {
-            temp_intSet.add(data[i]);
-         }
-      }
-      delete [] data;
-      data = temp_intSet.data;
-      capacity = temp_intSet.capacity;
-      used--;
-      return true;
-   }*/
+   // Checking to see if anInt is contained in 'data'
+   // if contained, we proceed with removal
    if (contains(anInt))
    {
       for (int i = 0; i < used; i++)
       {
          if (data[i] == anInt)
          {
+            // Sifting all elements to the left after the
+            // reqested element was removed
             for (int j = i; j < used - 1; j++)
             {
                data[j] = data[j+1];
@@ -353,14 +342,19 @@ bool IntSet::remove(int anInt)
 
 bool operator==(const IntSet& is1, const IntSet& is2)
 {
+   // If both sets are empty then they already equal to each other
+   // This saves a little bit of time
    if (is1.isEmpty() && is2.isEmpty())
    {
       return true;
    }
+   // if they are both subsets of eachother then they are equal
    else if (is1.isSubsetOf(is2) && is2.isSubsetOf(is1))
    {
       return true;
    }
-
-   return false;
+   else
+   {
+      return false;
+   }
 }
