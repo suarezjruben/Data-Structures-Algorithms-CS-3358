@@ -92,22 +92,22 @@ void IntSet::resize(int new_capacity)
       capacity = new_capacity;
    }
 
-   // Creating new dynamic array with new capacity value.
-   int * new_array = new int[capacity];
+   // Creating temp dynamic array with new capacity value.
+   int * temp_array = new int[capacity];
 
    // Transferring old elements to new dynamic array.
    for (int i = 0; i < used; i++)
    {
-      new_array[i] = data[i];
+      temp_array[i] = data[i];
    }
 
    // Deallocating old array.
    delete [] data;
    // Assigning data to new array.
-   data = new_array;
-   // Removing new_array pinter because it is no longer needed
-   new_array = NULL;
-   delete new_array;
+   data = temp_array;
+   // Removing temp_array pointer because it is no longer needed
+   temp_array = NULL;
+   delete temp_array;
 }
 
 IntSet::IntSet(int initial_capacity) : capacity(initial_capacity), used(0)
@@ -143,7 +143,26 @@ IntSet::~IntSet()
 
 IntSet& IntSet::operator=(const IntSet& rhs)
 {
-   cout << "operator=() is not implemented yet..." << endl;
+   // Allocating space in temp array to hold elements in rhs
+   int * temp_array = new int[rhs.capacity];
+   for (int i = 0; i < rhs.capacity; i++)
+   {
+      temp_array[i] = rhs.data[i];
+   }
+
+   // Deleting current dynamic array pinted to by data
+   // and assigning data to temp_array
+   delete [] data;
+   data = temp_array;
+
+   // Copying over all properties from rhs to data
+   capacity = rhs.capacity;
+   used = rhs.used;
+
+   // Delingt temp_array pointer because is no longer needed
+   temp_array = NULL;
+   delete temp_array;
+
    return *this;
 }
 
@@ -210,6 +229,7 @@ void IntSet::DumpData(ostream& out) const
 
 IntSet IntSet::unionWith(const IntSet& otherIntSet) const
 {
+   cout << "intersect() is not implemented yet..." << endl;
    //IntSet unionSet = *
    return IntSet();
 }
@@ -258,6 +278,7 @@ bool IntSet::add(int anInt)
 
 bool IntSet::remove(int anInt)
 {
+   cout << "intersect() is not implemented yet..." << endl;
    /*
    if (contains(anInt))
    {
