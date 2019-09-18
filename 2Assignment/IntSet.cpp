@@ -136,7 +136,9 @@ IntSet::IntSet(const IntSet& src) : capacity(src.capacity), used(src.used)
 
 IntSet::~IntSet()
 {
-   cout << "destructor is not implemented yet..." << endl;
+   // Deallocating dynamic variables
+   delete [] data;
+   data = NULL;
 }
 
 IntSet& IntSet::operator=(const IntSet& rhs)
