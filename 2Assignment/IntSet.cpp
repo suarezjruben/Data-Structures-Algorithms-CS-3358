@@ -127,7 +127,7 @@ IntSet::IntSet(const IntSet& src) : capacity(src.capacity), used(src.used)
    data = new int[capacity];
 
    // Copying every element in src to data
-   for (int i = 0; i < src.capacity; i++)
+   for (int i = 0; i < src.used; i++)
    {
       data[i] = src.data[i];
    }
@@ -145,7 +145,7 @@ IntSet& IntSet::operator=(const IntSet& rhs)
 {
    // Allocating space in temp array to hold elements in rhs
    int * temp_array = new int[rhs.capacity];
-   for (int i = 0; i < rhs.capacity; i++)
+   for (int i = 0; i < rhs.used; i++)
    {
       temp_array[i] = rhs.data[i];
    }
@@ -229,15 +229,37 @@ void IntSet::DumpData(ostream& out) const
 
 IntSet IntSet::unionWith(const IntSet& otherIntSet) const
 {
-   cout << "intersect() is not implemented yet..." << endl;
-   //IntSet unionSet = *
-   return IntSet();
+   // Instanciating IntSet unionSet = *this to hold union elements of both
+   // this and otherIntSet
+   IntSet unionSet = *this;
+
+   // Copying over unique elements from ohterIntSet since all
+   // elements from *this are already contained
+   for (int i = 0; i < otherIntSet.used; i++)
+   {
+      unionSet.add(otherIntSet.data[i]);
+   }
+
+   return unionSet;
 }
 
 IntSet IntSet::intersect(const IntSet& otherIntSet) const
 {
-   cout << "intersect() is not implemented yet..." << endl;
-   return IntSet(); // dummy IntSet object returned
+   // IntSet representing the intersection of the invoking IntSet
+   // and otherIntSet that will be returned
+   IntSet interSet = *this;
+
+   // Removing all elements not contained in otherIntSet
+   // from the interSet
+   for (int i = 0; i < used; i++)
+   {
+      if (!otherIntSet.contains(interSet.data[i]))
+      {
+         interSet.remove(data[i]);
+      }
+   }
+
+   return interSet;
 }
 
 IntSet IntSet::subtract(const IntSet& otherIntSet) const
