@@ -208,8 +208,9 @@ namespace CS3358_FA2019
    // CONSTANT MEMBER FUNCTIONS
    sequence::size_type sequence::size() const
    {
-      cout << "size() not implemented yet" << endl;
-      return 0; // dummy value returned
+      // Returning the number of distinct elements which is stored in
+      // the varable used
+      return used;
    }
 
    bool sequence::is_item() const
