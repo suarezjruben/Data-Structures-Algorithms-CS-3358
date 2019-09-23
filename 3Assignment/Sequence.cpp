@@ -59,9 +59,17 @@ namespace CS3358_FA2019
       data = new value_type[capacity];
    }
 
-   sequence::sequence(const sequence& source)
+   sequence::sequence(const sequence& source) : used(source.used),
+   current_index(source.current_index), capacity(source.capacity)
    {
-      cout << "sequence(const sequence& source) not implemented yet" << endl;
+      // Creating new empty dynamic array of size 'capacity'
+      data = new value_type[capacity];
+
+      // Copying over all elements from 'source'
+      for (size_type i = 0; i < used; i++)
+      {
+         data[i] = source.data[i];
+      }
    }
 
    sequence::~sequence()
