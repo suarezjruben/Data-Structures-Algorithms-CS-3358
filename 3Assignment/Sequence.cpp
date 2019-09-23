@@ -113,7 +113,8 @@ namespace CS3358_FA2019
 
    void sequence::start()
    {
-      cout << "start() not implemented yet" << endl;
+      // Assigning current item to the first item on sequence array
+      current_index = 0;
    }
 
    void sequence::advance()
