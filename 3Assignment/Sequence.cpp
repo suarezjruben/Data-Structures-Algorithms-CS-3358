@@ -165,7 +165,17 @@ namespace CS3358_FA2019
 
    void sequence::remove_current()
    {
-      cout << "remove_current() not implemented yet" << endl;
+      // Validating pre-condition
+      assert(is_item());
+
+      // Removing current item and shifting everything to the left
+      for (size_type i = current_index; i < used - 1; i++)
+      {
+         data[i] = data[i + 1];
+      }
+
+      // Reducing used count by one
+      --used;
    }
 
    sequence& sequence::operator=(const sequence& source)
