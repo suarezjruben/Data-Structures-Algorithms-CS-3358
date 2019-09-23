@@ -127,7 +127,20 @@ namespace CS3358_FA2019
 
    void sequence::insert(const value_type& entry)
    {
-      cout << "insert(const value_type& entry) not implemented yet" << endl;
+      // If sequence at capacity then resize
+      if (used == capacity)
+      {
+         resize(size_type ((capacity * 1.5) + 1));
+      }
+
+      // Inserting new entry at current_index and shifting elements to the right
+      for (size_type i = used; i > current_index; --i)
+      {
+         data[i] = data[i - 1];
+      }
+
+      data[current_index] = entry;
+      ++used;
    }
 
    void sequence::attach(const value_type& entry)
