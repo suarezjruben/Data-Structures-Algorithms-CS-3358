@@ -74,7 +74,9 @@ namespace CS3358_FA2019
 
    sequence::~sequence()
    {
-      cout << "~sequence() not implemented yet" << endl;
+      // Dellocating dynamic variables
+      delete [] data;
+      data = NULL;
    }
 
    // MODIFICATION MEMBER FUNCTIONS
