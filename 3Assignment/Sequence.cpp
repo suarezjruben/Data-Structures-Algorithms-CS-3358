@@ -215,13 +215,14 @@ namespace CS3358_FA2019
 
    bool sequence::is_item() const
    {
-      cout << "is_item() not implemented yet" << endl;
-      return false; // dummy value returned
+      // Returning true if current_index != used
+      return (current_index != used);
    }
 
    sequence::value_type sequence::current() const
    {
-      cout << "current() not implemented yet" << endl;
-      return value_type(); // dummy value returned
+      // Validating pre-condition
+      assert(is_item());
+      return data[current_index];
    }
 }
