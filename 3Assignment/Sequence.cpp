@@ -74,7 +74,7 @@ namespace CS3358_FA2019
 
    sequence::~sequence()
    {
-      // Dellocating dynamic variables
+      // Deallocating dynamic variables
       delete [] data;
       data = NULL;
    }
@@ -82,7 +82,33 @@ namespace CS3358_FA2019
    // MODIFICATION MEMBER FUNCTIONS
    void sequence::resize(size_type new_capacity)
    {
-      cout << "resize(size_type new_capacity) not implemented yet" << endl;
+      // Checking Pre-condition
+      if (used != 0 && new_capacity < used)
+      {
+         capacity = used;
+      }
+      else if (new_capacity < 1)
+      {
+         capacity = 1;
+      }
+      else
+      {
+         capacity = new_capacity;
+      }
+
+      // Creating temp dynamic array with new capacity value
+      value_type * temp_data = new value_type[capacity];
+
+      // Copying contents from 'data' to new resized array
+      for (size_type i = 0; i < used; i++)
+      {
+         temp_data[i] = data[i];
+      }
+
+      // Deallocating old dynamic variable 'data' and assigning 'data' to new
+      // resized dynamic array
+      delete [] data;
+      data = temp_data;
    }
 
    void sequence::start()
