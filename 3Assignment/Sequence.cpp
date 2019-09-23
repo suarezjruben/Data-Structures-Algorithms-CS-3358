@@ -119,7 +119,10 @@ namespace CS3358_FA2019
 
    void sequence::advance()
    {
-      cout << "advance() not implemented yet" << endl;
+      // Validating pre-condition
+      assert(is_item());
+
+      current_index = current_index + 1;
    }
 
    void sequence::insert(const value_type& entry)
