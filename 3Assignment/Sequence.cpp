@@ -180,7 +180,28 @@ namespace CS3358_FA2019
 
    sequence& sequence::operator=(const sequence& source)
    {
-      cout << "operator=(const sequence& source) not implemented yet" << endl;
+      if (!(this == &source))
+      {
+         // Allocating space in temp_data to hold elements in source
+         value_type * temp_data = new value_type[source.capacity];
+
+         // Copying over source array elements into temp_data array
+         for (size_type i = 0; i < source.used; i++)
+         {
+            temp_data[i] = source.data[i];
+         }
+
+         // Deallocating dynamic array currently pointed at by data
+         delete [] data;
+
+         // Assigning data to temp_data array
+         data = temp_data;
+
+         // Reflecting source properties onto this
+         used = source.used;
+         current_index = source.current_index;
+         capacity = source.capacity;
+      }
       return *this;
    }
 
