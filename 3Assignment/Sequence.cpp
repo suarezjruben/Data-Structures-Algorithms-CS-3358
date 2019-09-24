@@ -134,9 +134,20 @@ namespace CS3358_FA2019
       }
 
       // Inserting new entry at current_index and shifting elements to the right
-      for (size_type i = used; i > current_index; --i)
+      if (is_item())
       {
-         data[i] = data[i - 1];
+         for (size_type i = used; i > current_index; --i)
+         {
+            data[i] = data[i - 1];
+         }
+      }
+      else
+      {
+         current_index = 0;
+         for (size_type i = used; i > current_index; --i)
+         {
+            data[i] = data[i - 1];
+         }
       }
 
       data[current_index] = entry;
@@ -145,20 +156,28 @@ namespace CS3358_FA2019
 
    void sequence::attach(const value_type& entry)
    {
-      // If sequence at capacity then resize
-      if (used == capacity)
+      // If sequence is not empty
+      if ( current_index != used)
       {
-         resize(size_type ((capacity * 1.5) + 1));
+         // If sequence at capacity then resize
+         if (used == capacity)
+         {
+            resize(size_type ((capacity * 1.5) + 1));
+         }
+
+         // Inserting new entry after current_index and shifting elements to the right
+         current_index = current_index + 1;
+         for (size_type i = used; i > current_index; --i)
+         {
+            data[i] = data[i - 1];
+         }
+         data[current_index] = entry;
+      }
+      else
+      {
+         data[current_index] = entry;
       }
 
-      // Inserting new entry after current_index and shifting elements to the right
-      current_index = current_index + 1;
-      for (size_type i = used; i > current_index; --i)
-      {
-         data[i] = data[i - 1];
-      }
-
-      data[current_index] = entry;
       ++used;
 
    }
