@@ -44,14 +44,22 @@
 namespace CS3358_FA2019_A04_sequence
 {
    template <class T>
-   sequence<T>::sequence() : used(0), current_index(0) { }
+   sequence<T>::sequence() : used(0), current_index(0)
+   {
+      //Initialization list used
+   }
 
    template <class T>
-   void sequence<T>::start() { current_index = 0; }
+   void sequence<T>::start()
+   {
+      current_index = 0;
+   }
 
    template <class T>
    void sequence<T>::end()
-   { current_index = (used > 0) ? used - 1 : 0; }
+   {
+      current_index = (used > 0) ? used - 1 : 0;
+   }
 
    template <class T>
    void sequence<T>::advance()
@@ -108,10 +116,16 @@ namespace CS3358_FA2019_A04_sequence
    }
 
    template <class T>
-   typename sequence<T>::size_type sequence<T>::size() const { return used; }
+   typename sequence<T>::size_type sequence<T>::size() const
+   {
+      return used;
+   }
 
    template <class T>
-   bool sequence<T>::is_item() const { return (current_index < used); }
+   bool sequence<T>::is_item() const
+   {
+      return (current_index < used);
+   }
 
    template <class T>
    T sequence<T>::current() const
