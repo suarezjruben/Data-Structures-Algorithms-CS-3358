@@ -19,6 +19,7 @@ namespace CS3358_FA2019_A5P2
 
    CNode* cnPtrQueue::front()
    {
+      // Checking precondition (not empty)
       assert(!inStack.empty() || !outStack.empty());
       if(outStack.empty())
       {
@@ -34,10 +35,12 @@ namespace CS3358_FA2019_A5P2
    void cnPtrQueue::push(CNode* cnPtr)
    {
       inStack.push(cnPtr);
+      ++numItems;
    }
 
    void cnPtrQueue::pop()
    {
+      // Checking precondition (not empty)
       assert(!inStack.empty() || !outStack.empty());
       if(outStack.empty())
       {
@@ -48,6 +51,7 @@ namespace CS3358_FA2019_A5P2
          }
       }
       outStack.pop();
+      --numItems;
    }
 
 }
