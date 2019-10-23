@@ -9,7 +9,7 @@ namespace CS3358_FA2019_A5P2
 
    bool cnPtrQueue::empty() const
    {
-      return (outStack.empty.() && inStack.empty());
+      return (outStack.empty() && inStack.empty());
    }
 
    cnPtrQueue::size_type cnPtrQueue::size() const

@@ -55,5 +55,33 @@ namespace CS3358_FA2019_A5P2
    void ShowAll_BF(PNode* pListHead, ostream& outs)
    {
       // to be implemented (part of assignment)
+      if(pListHead == 0)
+      {
+         return;
+      }
+
+      CNode *cursor = 0;
+      cnPtrQueue q;
+
+      while(pListHead != 0)
+      {
+         if(pListHead->data !=0)
+         {
+            q.push(pListHead->data);
+         }
+         pListHead = pListHead->link;
+      }
+
+      while(!q.empty())
+      {
+         cursor = q.front();
+         q.pop();
+         outs << cursor->data << "  ";
+         if(cursor->link != 0)
+         {
+            q.push(cursor->link);
+         }
+      }
+
    }
 }
