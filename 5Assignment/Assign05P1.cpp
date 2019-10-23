@@ -61,12 +61,10 @@ int main()
       for (intCount = 0; intCount < numInts; ++intCount)
       {
          newInt = BoundedRandomInt(loValue, hiValue);
-         cout << "newInt: " << newInt << endl;           // Remove
          iArr0[used0++] = newInt;
          InsertAsTail(head1, newInt);
       }
       target = BoundedRandomInt(loValue, hiValue);
-      cout << "Target: " << target << endl;           // Remove
       AnsItoArrCalc(iArr0, used0, iArr1, used1, target);
 
       DebugShowCase(testCasesDone, testCasesToDo, iArr0, used0, target);

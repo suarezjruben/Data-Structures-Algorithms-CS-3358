@@ -244,63 +244,55 @@ void ListClear(Node*& headPtr, int noMsg)
 }
 
 // definition of PromoteTarget
-void PromoteTarget(Node*& headPtr, int target){
+void PromoteTarget(Node*& headPtr, int target)
+{
    bool found = false;
-   int counter = 0;
-   if(headPtr == 0)
+
+   if(headPtr == 0)  //if empty (target not found), add target
    {
       Node *newNodePtr = new Node;
       newNodePtr->data = target;
       newNodePtr->link = 0;
-      if (headPtr == 0)
-         headPtr = newNodePtr;
-      else
+      headPtr = newNodePtr;
+   }
+   else if(headPtr->link == 0)  // if only one item
+   {
+      if(headPtr->data != target)   //if item does not match target, add
       {
-         Node *cursor = headPtr;
-
-         while (cursor->link != 0) // not at last node
-            cursor = cursor->link;
-         cursor->link = newNodePtr;
+         Node *newNodePtr = new Node;
+         newNodePtr->data = target;
+         newNodePtr->link = 0;
+         headPtr->link = newNodePtr;
       }
    }
-   else
+   else //if not an empty list nor a single item list
    {
-      Node *previous, *current;
-      previous = headPtr;
+      Node *current, *next;
       current = headPtr;
+      next = headPtr->link;
 
-      while(current != 0) // not at last node
+      while(next != 0)
       {
-         if(current->data == target)
+         if(current->data == target)   //if first item matches do nothing
          {
             found = true;
-            break;
          }
-         else if(current->data == target)
+         if(next->data == target)   //if target anywhere else in the list
          {
-            //cout << "in if loop! data: "  << current->data << endl;
-            //cout << "current->link: "  << current->link << endl;
-            previous->link = current->link;
-            //cout << "previous->link: "  << previous->link << endl;
-            current->link = headPtr;
-            //cout << "headPtr: "  << headPtr << endl;
-            headPtr = current;
-            //cout << "headPtr after: "  << headPtr << endl;
-            current = previous;
-            //cout << "current->link: "  << current->link << endl;
             found = true;
-            counter++;
-            if(counter > 5)break;
+            current->link = next->link;
+            next->link = headPtr;
+            headPtr = next;
+            next = current->link;
          }
-         else
+         else  //if not found, move to the next item
          {
-            //cout << "in else" << endl;
-            previous = current;
-            current = current->link;
+            current = next;
+            next = next->link;
          }
-
       }
-      if(!found)
+
+      if(!found)  //Target cannot be found in the given list
       {
          Node *newNodePtr = new Node;
          newNodePtr->data = target;
@@ -310,11 +302,12 @@ void PromoteTarget(Node*& headPtr, int target){
          else
          {
             Node *cursor = headPtr;
-
             while (cursor->link != 0) // not at last node
                cursor = cursor->link;
             cursor->link = newNodePtr;
          }
       }
+
    }
+
 }
