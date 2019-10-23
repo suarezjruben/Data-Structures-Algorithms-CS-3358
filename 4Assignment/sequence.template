@@ -52,18 +52,23 @@ namespace CS3358_FA2019_A04_sequence
    template <class T>
    void sequence<T>::start()
    {
+      // Setting current_index to first index (0)
       current_index = 0;
    }
 
    template <class T>
    void sequence<T>::end()
    {
+	  // If used greater than 0 set current_index
+	  // to used-1 else set it to 0
       current_index = (used > 0) ? used - 1 : 0;
    }
 
    template <class T>
    void sequence<T>::advance()
    {
+      // Checking precondition that current indexes
+	  // holds an item, if so move to next index
       assert( is_item() );
       ++current_index;
    }
@@ -71,6 +76,9 @@ namespace CS3358_FA2019_A04_sequence
    template <class T>
    void sequence<T>::move_back()
    {
+      // Checking precondition that current indexe
+	  // holds an item, if current index is the first
+	  // then move to the end, else move back an index
       assert( is_item() );
       if (current_index == 0)
          current_index = used;
@@ -81,6 +89,8 @@ namespace CS3358_FA2019_A04_sequence
    template <class T>
    void sequence<T>::add(const T& entry)
    {
+      // Checking precondition that the sequence is not 
+	  // at capacity
       assert( size() < CAPACITY );
 
       size_type i;
@@ -106,6 +116,8 @@ namespace CS3358_FA2019_A04_sequence
    template <class T>
    void sequence<T>::remove_current()
    {
+      // Checking precondition that current index
+	  // holds and item, if so remove
       assert( is_item() );
 
       size_type i;
@@ -118,6 +130,7 @@ namespace CS3358_FA2019_A04_sequence
    template <class T>
    typename sequence<T>::size_type sequence<T>::size() const
    {
+      // used holds the size or number of elements used
       return used;
    }
 
@@ -130,6 +143,9 @@ namespace CS3358_FA2019_A04_sequence
    template <class T>
    T sequence<T>::current() const
    {
+      // Checking the precondition that the 
+	  // current index holds an item, if so
+	  // return that item.
       assert( is_item() );
 
       return data[current_index];
