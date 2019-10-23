@@ -248,7 +248,7 @@ void PromoteTarget(Node*& headPtr, int target)
 {
    bool found = false;
 
-   if(headPtr == 0)  //if empty (target not found), add target
+   if(headPtr == 0)  // if empty (target not found), add target
    {
       Node *newNodePtr = new Node;
       newNodePtr->data = target;
@@ -257,7 +257,7 @@ void PromoteTarget(Node*& headPtr, int target)
    }
    else if(headPtr->link == 0)  // if only one item
    {
-      if(headPtr->data != target)   //if item does not match target, add
+      if(headPtr->data != target)   // if item does not match target, add
       {
          Node *newNodePtr = new Node;
          newNodePtr->data = target;
@@ -265,7 +265,7 @@ void PromoteTarget(Node*& headPtr, int target)
          headPtr->link = newNodePtr;
       }
    }
-   else //if not an empty list nor a single item list
+   else // if not an empty list nor a single item list
    {
       Node *current, *next;
       current = headPtr;
@@ -273,11 +273,11 @@ void PromoteTarget(Node*& headPtr, int target)
 
       while(next != 0)
       {
-         if(current->data == target)   //if first item matches do nothing
+         if(current->data == target)   // if first item matches do nothing
          {
             found = true;
          }
-         if(next->data == target)   //if target anywhere else in the list
+         if(next->data == target)   // if target anywhere else in the list
          {
             found = true;
             current->link = next->link;
@@ -285,27 +285,24 @@ void PromoteTarget(Node*& headPtr, int target)
             headPtr = next;
             next = current->link;
          }
-         else  //if not found, move to the next item
+         else  // if not found, move to the next item
          {
             current = next;
             next = next->link;
          }
       }
 
-      if(!found)  //Target cannot be found in the given list
+      if(!found)  // Target cannot be found in the given list
       {
          Node *newNodePtr = new Node;
          newNodePtr->data = target;
          newNodePtr->link = 0;
-         if (headPtr == 0)
-            headPtr = newNodePtr;
-         else
+         Node *cursor = headPtr;
+         while (cursor->link != 0) // not at last node
          {
-            Node *cursor = headPtr;
-            while (cursor->link != 0) // not at last node
-               cursor = cursor->link;
-            cursor->link = newNodePtr;
+            cursor = cursor->link;
          }
+         cursor->link = newNodePtr; // add to tail
       }
 
    }

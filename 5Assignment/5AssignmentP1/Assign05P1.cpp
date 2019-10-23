@@ -67,7 +67,7 @@ int main()
       target = BoundedRandomInt(loValue, hiValue);
       AnsItoArrCalc(iArr0, used0, iArr1, used1, target);
 
-      DebugShowCase(testCasesDone, testCasesToDo, iArr0, used0, target);
+      //DebugShowCase(testCasesDone, testCasesToDo, iArr0, used0, target);
 
       PromoteTarget(head1, target);
 
