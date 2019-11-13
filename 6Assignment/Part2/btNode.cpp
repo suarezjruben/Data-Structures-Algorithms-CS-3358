@@ -109,19 +109,19 @@ bool bst_remove(btNode*& bst_root, int remInt)
       else                          // Current root has only one child or none
       {
          btNode* old_bst_root = bst_root;
-         if(bst_root->left == 0 && bst_root->right != 0) // Right child present
-         {
+         if(bst_root->left == 0 && bst_root->right != 0) // Only right child
+         {                                               // present not left
             bst_root = bst_root->right;
          }
-         else if (bst_root-> left != 0 && bst_root->right == 0) // Left present
-         {
-            bst_root = bst_root->left;
+         else if (bst_root-> left != 0 && bst_root->right == 0) // Only left
+         {                                                  // child present
+            bst_root = bst_root->left;                      // not right
          }
          else                       // No children
          {
             bst_root = 0;
          }
-         delete old_bst_root;       // Free old root
+         delete old_bst_root;       // Free up old root
       }
       return true;
    }
