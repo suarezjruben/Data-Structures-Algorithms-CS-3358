@@ -105,7 +105,7 @@ p_queue::p_queue(size_type initial_capacity) : capacity(initial_capacity),
          heap[index] = src.heap[index];
    }
 
-   // DESTRUCTOR
+   // ~DESTRUCTOR
    p_queue::~p_queue()
    {
       delete [] heap;
@@ -123,7 +123,8 @@ p_queue::p_queue(size_type initial_capacity) : capacity(initial_capacity),
       ItemType *temp_heap = new ItemType[rhs.capacity];
 
       // rsh content transfer
-      for (size_type index = 0; index < rhs.used; ++index) {
+      for (size_type index = 0; index < rhs.used; ++index)
+      {
          temp_heap[index] = rhs.heap[index];
       }
 
@@ -139,20 +140,20 @@ p_queue::p_queue(size_type initial_capacity) : capacity(initial_capacity),
 
    void p_queue::push(const value_type& entry, size_type priority)
    {
-      // Check to see if we need to resize the dynamic array. If
-      // we do the multiple current capacity by 1.25 and add +1 to
-      // satisfy the resize rule seen in previous assignments.
-      if(used == capacity){resize(size_type (1.25 * capacity)+1);}
+      // Resizing if at capacity
+      if(used == capacity)
+      {
+         resize(size_type (1.5 * capacity)+1);
+      }
 
       size_type index = used;
 
-      // Copy new items into heap and update used.
+      // Pushing new item and updating used
       heap[used].data = entry;
       heap[used].priority = priority;
       ++used;
 
-      // While the new entry has a priority that is higher than its
-      // parent, swap the new entry with the parent.
+      // While new item has higher priority than parent, swap
       while(index !=0 && parent_priority(index) < heap[index].priority)
       {
          swap_with_parent(index);
@@ -162,28 +163,34 @@ p_queue::p_queue(size_type initial_capacity) : capacity(initial_capacity),
 
    void p_queue::pop()
    {
+      // Checking precondition
       assert(size() > 0);
-      /// Make simple case fast.
-      if (used == 1) { --used; return; }
 
-      /// Move end data to front.
+      // If only one item
+      if (used == 1)
+      {
+         --used;
+         return;
+      }
+
+      // Relocating end data to front
       heap[0].data = heap[used-1].data;
 
-      /// Move end priority to front.
+      // Relocating end priority to front
       heap[0].priority = heap[used-1].priority;
       --used;
 
-      /// Create two helper indices.
-      size_type index_parent = 0,
-                index_child = 0;
+      // Tracking indeces
+      size_type parentIndx = 0,
+                childIndx = 0;
 
-      /// Swap all parents with children that are larger.
-      while (!is_leaf(index_parent) && heap[index_parent].priority
-                                       <= big_child_priority(index_parent))
+      // Swaping smaller parents with larger children
+      while (!is_leaf(parentIndx) && heap[parentIndx].priority
+            <= big_child_priority(parentIndx))
       {
-         index_child = big_child_index(index_parent);
-         swap_with_parent(big_child_index(index_parent));
-         index_parent = index_child;
+         childIndx = big_child_index(parentIndx);
+         swap_with_parent(big_child_index(parentIndx));
+         parentIndx = childIndx;
       }
 
    }
@@ -195,15 +202,17 @@ p_queue::p_queue(size_type initial_capacity) : capacity(initial_capacity),
       return used;
    }
 
+   p_queue::value_type p_queue::front() const
+   {
+      // Checking precondition
+      assert(size() > 0);
+
+      return heap[0].data;
+   }
+
    bool p_queue::empty() const
    {
       return (used == 0);
-   }
-
-   p_queue::value_type p_queue::front() const
-   {
-      assert(size() > 0);
-      return heap[0].data;
    }
 
    // PRIVATE HELPER FUNCTIONS
@@ -216,16 +225,22 @@ p_queue::p_queue(size_type initial_capacity) : capacity(initial_capacity),
    //       NOTE: All existing items in the p_queue are preserved and
    //             used remains unchanged.
    {
-      /// Check resize ability to defined new_capacity.
-      if(new_capacity < used){new_capacity = used;}
+      // Checking to see if new_capacity less than used
+      // if so, then set new_capacity to used
+      if(new_capacity < used)
+      {
+         new_capacity = used;
+      }
 
-      /// Create temp heap to store heap of new_capacity.
+      //Creating temp heap to store new_capacity heap
       ItemType* temp_heap = new ItemType[new_capacity];
 
-      /// Deep copy items.
-      for(size_type index = 0; index < used; ++index){
+      // Deep copy of items
+      for(size_type index = 0; index < used; ++index)
+      {
          temp_heap[index] = heap[index];
       }
+      // Deallocating memory
       delete [] heap;
       heap = temp_heap;
       capacity = new_capacity;
@@ -236,7 +251,9 @@ p_queue::p_queue(size_type initial_capacity) : capacity(initial_capacity),
    // Post: If the item at heap[i] has no children, true has been
    //       returned, otherwise false has been returned.
    {
+      // Checking precondition
       assert(i <used);
+
       return (((i*2)+1) >= used);
    }
 
@@ -246,8 +263,10 @@ p_queue::p_queue(size_type initial_capacity) : capacity(initial_capacity),
    // Post: The index of "the parent of the item at heap[i]" has
    //       been returned.
    {
+      // Checking preconditions
       assert(i > 0);
       assert(i < used);
+
       return static_cast<size_type>((i-1)/2);
    }
 
@@ -257,6 +276,7 @@ p_queue::p_queue(size_type initial_capacity) : capacity(initial_capacity),
    // Post: The priority of "the parent of the item at heap[i]" has
    //       been returned.
    {
+      // Checking preconditions
       assert(i > 0);
       assert(i < used);
       return heap[parent_index(i)].priority;
@@ -270,22 +290,30 @@ p_queue::p_queue(size_type initial_capacity) : capacity(initial_capacity),
    //       (The bigger child is the one whose priority is no smaller
    //       than that of the other child, if there is one.)
    {
+      // checking precondition
       assert(!(is_leaf(i)));
 
-      size_type iLHSC = (i * 2) + 1; /// Index of LHS child.
-      size_type iRHSC = (i * 2) + 2; /// Index of RHS child.
+      size_type LHSC_index = (i * 2) + 1; // Index of LHS child
+      size_type RHSC_index = (i * 2) + 2; // Index of RHS child
 
-      if(i == 0){
-         if(heap[1].priority >= heap[2].priority){
+      if(i == 0)
+      {
+         if(heap[1].priority >= heap[2].priority)
+         {
             return 1;
-         } else {
+         }
+         else
+         {
             return 2;
          }
       }
-      if (iRHSC < used && heap[iRHSC].priority > heap[iLHSC].priority){
-         return iRHSC;  /// Two children present.
-      } else {
-         return iLHSC;  /// One child present.
+      if (RHSC_index < used && heap[RHSC_index].priority > heap[LHSC_index].priority)
+      {
+         return RHSC_index;  // Two children present
+      }
+      else
+      {
+         return LHSC_index;  // One child present
       }
    }
 
@@ -297,7 +325,9 @@ p_queue::p_queue(size_type initial_capacity) : capacity(initial_capacity),
    //       (The bigger child is the one whose priority is no smaller
    //       than that of the other child, if there is one.)
    {
+      // Checking precondition
       assert(!(is_leaf(i)));
+
       return heap[big_child_index(i)].priority;
    }
 
@@ -305,19 +335,20 @@ p_queue::p_queue(size_type initial_capacity) : capacity(initial_capacity),
    // Pre:  (i > 0) && (i < used)
    // Post: The item at heap[i] has been swapped with its parent.
    {
+      // Checking preconditions
       assert(i > 0);
       assert(i < used);
 
-      /// Find parent index.
-      size_type parentIndex = parent_index(i);
+      // Finding parent index
+      size_type parentIndx = parent_index(i);
 
-      /// Grab parent item.
-      ItemType temp_item = heap[parentIndex];
+      // Copying parent item
+      ItemType temp_item = heap[parentIndx];
 
-      /// Set parent to child item.
-      heap[parentIndex] = heap[i];
+      // Swaping parent item with child[i] item
+      heap[parentIndx] = heap[i];
 
-      /// Set child to parent item.
+      // Swaping child item with parent's item
       heap[i] = temp_item;
    }
 }
