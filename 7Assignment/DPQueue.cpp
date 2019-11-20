@@ -83,28 +83,29 @@ namespace CS3358_FA2019_A7
          for (size_type i = 0; i < used; i++)
             cout << heap[i].data << ' ';
    }
+
+   // CONSTRUCTORS AND DESTRUCTOR
 p_queue::p_queue(size_type initial_capacity) : capacity(initial_capacity),
                                                   used(0)
    {
-      // Adjust capacity based on user specified initial_capacity.
-      // Any attempt to specify a value <= 0 will be set to default
-      // capacity.
+      // If provided capacity < 1, set to default
       if(initial_capacity < 1){capacity = DEFAULT_CAPACITY;}
 
-      // Allocate new dynamic array based on specified capacity.
+      // Allocating new dynamic array with specified capacity
       heap = new ItemType[capacity];
    }
 
    p_queue::p_queue(const p_queue& src) : capacity(src.capacity), used(src.used)
    {
-      // Create a new dynamic array based on src capacity.
+      // Allocating new dynamic array with src.cpacity
       heap = new ItemType[capacity];
 
-      // Deep copy each item src to the new dynamic array.
+      // Deep copy of items in src
       for(size_type index = 0; index < capacity; ++index)
          heap[index] = src.heap[index];
    }
 
+   // DESTRUCTOR
    p_queue::~p_queue()
    {
       delete [] heap;
@@ -114,24 +115,22 @@ p_queue::p_queue(size_type initial_capacity) : capacity(initial_capacity),
    // MODIFICATION MEMBER FUNCTIONS
    p_queue& p_queue::operator=(const p_queue& rhs)
    {
-      // Self-assignment fail safe. Check for self-assignment.
-      // If self-assignment is present then return invoking object.
+      // If same (this) object return this
       if (this == &rhs)
          return *this;
 
-      // Create temporary dynamic array to safely assign contents
-      // of array.
+      // Temp array to store contents of rhs
       ItemType *temp_heap = new ItemType[rhs.capacity];
 
-      // Move contents of rhs array to temp
+      // rsh content transfer
       for (size_type index = 0; index < rhs.used; ++index) {
          temp_heap[index] = rhs.heap[index];
       }
 
-      // Deallocate old dynamic array.
+      // Deallocating old dynamic array
       delete [] heap;
 
-      // Start assigning member variables from rhs.
+      // Assigning to new members
       heap = temp_heap;
       capacity = rhs.capacity;
       used = rhs.used;
@@ -322,140 +321,3 @@ p_queue::p_queue(size_type initial_capacity) : capacity(initial_capacity),
       heap[i] = temp_item;
    }
 }
-
-
-
-
-
-
-
-
-
-   // CONSTRUCTORS AND DESTRUCTOR
-
-   p_queue::p_queue(size_type initial_capacity)
-   {
-      cerr << "p_queue() not implemented yet" << endl;
-   }
-
-   p_queue::p_queue(const p_queue& src)
-   {
-      cerr << "p_queue(const p_queue&) not implemented yet" << endl;
-   }
-
-   p_queue::~p_queue()
-   {
-      cerr << "~p_queue() not implemented yet" << endl;
-   }
-
-   // MODIFICATION MEMBER FUNCTIONS
-   p_queue& p_queue::operator=(const p_queue& rhs)
-   {
-      cerr << "operator=(const p_queue&) not implemented yet" << endl;
-      return *this;
-   }
-
-   void p_queue::push(const value_type& entry, size_type priority)
-   {
-      cerr << "push(const value_type&, size_type) not implemented yet" << endl;
-   }
-
-   void p_queue::pop()
-   {
-      cerr << "pop() not implemented yet" << endl;
-   }
-
-   // CONSTANT MEMBER FUNCTIONS
-
-   p_queue::size_type p_queue::size() const
-   {
-      cerr << "size() not implemented yet" << endl;
-      return 0; // dummy return value
-   }
-
-   bool p_queue::empty() const
-   {
-      cerr << "empty() not implemented yet" << endl;
-      return false; // dummy return value
-   }
-
-   p_queue::value_type p_queue::front() const
-   {
-      cerr << "front() not implemented yet" << endl;
-      return value_type(); // dummy return value
-   }
-
-   // PRIVATE HELPER FUNCTIONS
-   void p_queue::resize(size_type new_capacity)
-   // Pre:  (none)
-   // Post: The size of the dynamic array pointed to by heap (thus
-   //       the capacity of the p_queue) has been resized up or down
-   //       to new_capacity, but never less than used (to prevent
-   //       loss of existing data).
-   //       NOTE: All existing items in the p_queue are preserved and
-   //             used remains unchanged.
-   {
-      cerr << "resize(size_type) not implemented yet" << endl;
-   }
-
-   bool p_queue::is_leaf(size_type i) const
-   // Pre:  (i < used)
-   // Post: If the item at heap[i] has no children, true has been
-   //       returned, otherwise false has been returned.
-   {
-      cerr << "is_leaf(size_type) not implemented yet" << endl;
-      return false; // dummy return value
-   }
-
-   p_queue::size_type
-   p_queue::parent_index(size_type i) const
-   // Pre:  (i > 0) && (i < used)
-   // Post: The index of "the parent of the item at heap[i]" has
-   //       been returned.
-   {
-      cerr << "parent_index(size_type) not implemented yet" << endl;
-      return 0; // dummy return value
-   }
-
-   p_queue::size_type
-   p_queue::parent_priority(size_type i) const
-   // Pre:  (i > 0) && (i < used)
-   // Post: The priority of "the parent of the item at heap[i]" has
-   //       been returned.
-   {
-      cerr << "parent_priority(size_type) not implemented yet" << endl;
-      return 0; // dummy return value
-   }
-
-   p_queue::size_type
-   p_queue::big_child_index(size_type i) const
-   // Pre:  is_leaf(i) returns false
-   // Post: The index of "the bigger child of the item at heap[i]"
-   //       has been returned.
-   //       (The bigger child is the one whose priority is no smaller
-   //       than that of the other child, if there is one.)
-   {
-      cerr << "big_child_index(size_type) not implemented yet" << endl;
-      return 0; // dummy return value
-   }
-
-   p_queue::size_type
-   p_queue::big_child_priority(size_type i) const
-   // Pre:  is_leaf(i) returns false
-   // Post: The priority of "the bigger child of the item at heap[i]"
-   //       has been returned.
-   //       (The bigger child is the one whose priority is no smaller
-   //       than that of the other child, if there is one.)
-   {
-      cerr << "big_child_priority(size_type) not implemented yet" << endl;
-      return 0; // dummy return value
-   }
-
-   void p_queue::swap_with_parent(size_type i)
-   // Pre:  (i > 0) && (i < used)
-   // Post: The item at heap[i] has been swapped with its parent.
-   {
-      cerr << "swap_with_parent(size_type) not implemented yet" << endl;
-   }
-}
-
